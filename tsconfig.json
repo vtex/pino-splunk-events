@@ -1,0 +1,11 @@
+{
+  "extends": "@vtex/tsconfig",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "strict": true,
+    "noEmit": true,
+    "types": ["node", "jest"],
+    "incremental": true,
+    "resolveJsonModule": true
+  }
+}

@@ -1,0 +1,86 @@
+name: PR actions
+'on':
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - uses: actions/setup-node@master
+        with:
+          node-version: '14.15.4'
+
+      - name: Restore node cache
+        id: cache-node
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install node dependencies
+        if: steps.cache-node.outputs.cache-hit != 'true'
+        run: yarn --frozen-lockfile
+
+      - name: Run yarn lint
+        run: yarn lint
+
+  type-checks:
+    name: TS (type checks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - uses: actions/setup-node@master
+        with:
+          node-version: '14.15.4'
+
+      - name: Restore node cache
+        id: cache-node
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install node dependencies
+        if: steps.cache-node.outputs.cache-hit != 'true'
+        run: yarn --frozen-lockfile
+
+      - name: Run yarn ts:validate
+        run: yarn ts:validate
+
+  tests:
+    name: Run all tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - uses: actions/setup-node@master
+        with:
+          node-version: '14.15.4'
+
+      - name: Restore node cache
+        id: cache-node
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install node dependencies
+        if: steps.cache-node.outputs.cache-hit != 'true'
+        run: yarn --frozen-lockfile
+
+      - name: Run yarn test:ci
+        run: yarn test:ci

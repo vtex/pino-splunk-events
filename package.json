@@ -1,0 +1,84 @@
+{
+  "name": "pino-splunk-events",
+  "version": "0.0.0",
+  "description": "Pino transport layer to splunk-events",
+  "author": "VTEX",
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "Gabriel Takashi Katakura",
+      "url": "https://github.com/gtkatakura",
+      "email": "gt.katakura@gmail.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vtex/pino-splunk-events.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vtex/pino-splunk-events/issues"
+  },
+  "keywords": [
+    "pino",
+    "splunk",
+    "log",
+    "events",
+    "vtex"
+  ],
+  "files": [
+    "dist/",
+    "src/"
+  ],
+  "bin": "dist/cli.js",
+  "scripts": {
+    "prepublishOnly": "yarn test && yarn build",
+    "lint": "yarn lint:eslint && yarn lint:prettier",
+    "lint:eslint": "eslint --ext .js,.jsx,.ts,.tsx",
+    "lint:prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,yml,md}\"",
+    "test": "jest",
+    "test:watch": "yarn test --watch",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
+    "test:debug:watch": "yarn test:debug --no-cache --watch",
+    "test:ci": "yarn test --verbose --colors",
+    "ts:validate": "yarn tsc",
+    "coverage:open": "open-cli coverage/lcov-report/index.html",
+    "clean": "rimraf dist",
+    "build": "yarn clean && babel src --out-dir dist --extensions .ts --source-maps --ignore \"**/__tests__\" --copy-files --no-copy-ignored"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/cli": "^7.12.13",
+    "@babel/core": "^7.12.13",
+    "@babel/node": "^7.12.13",
+    "@babel/plugin-transform-typescript": "^7.13.0",
+    "@babel/preset-env": "^7.12.13",
+    "@types/jest": "^26.0.23",
+    "@vtex/prettier-config": "^0.3.6",
+    "@vtex/tsconfig": "^0.5.6",
+    "babel-plugin-const-enum": "^1.0.1",
+    "eslint": "^7.26.0",
+    "eslint-config-vtex": "^14.0.0",
+    "husky": "^6.0.0",
+    "jest": "^26.6.3",
+    "lint-staged": "^11.0.0",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.3.0",
+    "releasy": "^1.12.0",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,yml,md}": [
+      "prettier --write"
+    ]
+  }
+}
