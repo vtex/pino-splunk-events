@@ -31,6 +31,7 @@ type PinoLog = Record<any, unknown> & {
 }
 
 type SplunkLog = PinoLog & {
+  account?: string
   workflowType?: string
   workflowInstance?: string
 }
@@ -47,6 +48,8 @@ export const isPinoLog = (value: unknown): value is PinoLog => {
 export const isSplunkLog = (value: unknown): value is SplunkLog => {
   return (
     isPinoLog(value) &&
+    (typeof value.account === 'string' ||
+      typeof value.account === 'undefined') &&
     (typeof value.workflowType === 'string' ||
       typeof value.workflowType === 'undefined') &&
     (typeof value.workflowInstance === 'string' ||
@@ -55,13 +58,15 @@ export const isSplunkLog = (value: unknown): value is SplunkLog => {
 }
 
 export const toSplunkEvent = (log: SplunkLog) => {
-  const { level, time, workflowInstance, workflowType, ...eventData } = log
+  const { level, time, account, workflowInstance, workflowType, ...eventData } =
+    log
 
   const levelLabel = LOG_VALUE_TO_LABEL[level]
   const severity = LOG_LABEL_TO_SPLUNK_SEVERITY[levelLabel]
 
   return {
     severity,
+    account,
     workflow: {
       type: workflowType ?? '',
       instance: workflowInstance ?? '',

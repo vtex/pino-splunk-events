@@ -16,7 +16,8 @@ export const createSplunkEventsStream = (splunk: SplunkEvents) => {
         event.severity.type,
         event.workflow.type,
         event.workflow.instance,
-        event.data
+        event.data,
+        event.account
       )
     } else {
       splunk.logEvent('Important', 'Warn', 'fallback-log', 'invalid-pino-log', {
