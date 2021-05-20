@@ -10,12 +10,16 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x, 15.x]
     steps:
       - uses: actions/checkout@master
 
-      - uses: actions/setup-node@master
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@master
         with:
-          node-version: '14.15.4'
+          node-version: ${{ matrix.node-version }}
 
       - name: Restore node cache
         id: cache-node
@@ -36,12 +40,16 @@ jobs:
   type-checks:
     name: TS (type checks)
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x, 15.x]
     steps:
       - uses: actions/checkout@master
 
-      - uses: actions/setup-node@master
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@master
         with:
-          node-version: '14.15.4'
+          node-version: ${{ matrix.node-version }}
 
       - name: Restore node cache
         id: cache-node
@@ -62,12 +70,16 @@ jobs:
   tests:
     name: Run all tests
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x, 15.x]
     steps:
       - uses: actions/checkout@master
 
-      - uses: actions/setup-node@master
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@master
         with:
-          node-version: '14.15.4'
+          node-version: ${{ matrix.node-version }}
 
       - name: Restore node cache
         id: cache-node
