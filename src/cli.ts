@@ -18,6 +18,10 @@ class PinoSplunkEvents extends Command {
       description: 'Token used to authenticate with the Splunk server',
       required: true,
     }),
+    debug: flags.boolean({
+      description: 'Enable debugging mode',
+      default: false,
+    }),
   }
 
   public async run() {
