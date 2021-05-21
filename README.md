@@ -18,6 +18,31 @@ $ npm install pino-splunk-events
 $ node app.js | npx pino-splunk-events --endpoint=YOUR_SPLUNK_ENDPOINT --token=YOUR_SPLUNK_TOKEN
 ```
 
+#### Browser
+
+```ts
+import { getPinoBrowserWriteLog } from 'pino-splunk-events/lib/browser'
+import SplunkEvents from 'splunk-events'
+import pino from 'pino'
+
+const splunk = new SplunkEvents({
+  endpoint: process.env.SPLUNK_ENDPOINT,
+  token: process.env.SPLUNK_TOKEN,
+
+  // IMPORTANT! You need to set this flag
+  // to permit send nested data to splunk
+  // otherwise it will fails when try to
+  // send some log with nested data
+  shouldParseEventData: false,
+})
+
+const logger = pino({
+  browser: {
+    write: getPinoBrowserWriteLog(splunk),
+  },
+})
+```
+
 ### Running example
 
 ```bash

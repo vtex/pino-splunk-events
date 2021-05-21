@@ -26,10 +26,12 @@
     "vtex"
   ],
   "files": [
-    "dist/",
-    "src/"
+    "src/",
+    "lib/"
   ],
-  "bin": "dist/cli.js",
+  "bin": "lib/cli.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "prepublishOnly": "yarn test && yarn build",
     "lint": "yarn lint:eslint && yarn lint:prettier",
@@ -42,8 +44,10 @@
     "test:ci": "yarn test --verbose --colors",
     "ts:validate": "yarn tsc",
     "coverage:open": "open-cli coverage/lcov-report/index.html",
-    "clean": "rimraf dist",
-    "build": "yarn clean && babel src --out-dir dist --extensions .ts --source-maps --ignore \"**/__tests__\" --copy-files --no-copy-ignored",
+    "clean": "rimraf lib",
+    "build": "yarn clean && yarn build:js && yarn build:types",
+    "build:js": "babel src --out-dir lib --extensions .ts",
+    "build:types": "tsc src/index.ts --outDir lib --declaration --emitDeclarationOnly --esModuleInterop",
     "release": "release-it"
   },
   "dependencies": {
