@@ -2,7 +2,7 @@ import MockDate from 'mockdate'
 import { rest } from 'msw'
 import ndjsonParse from 'ndjson-parse'
 
-import { createSplunkEventsStream } from '../createSplunkEventsStream'
+import { createSplunkEventsStream } from '../../node/createSplunkEventsStream'
 import { server } from '../../../__mocks__/server.mock'
 import { createWaitableMock } from '../../../test/utils/jest'
 import { getSplunk } from '../getSplunk'

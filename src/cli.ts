@@ -3,8 +3,8 @@
 import { Command, flags } from '@oclif/command'
 import { handle as handleErrors } from '@oclif/errors'
 
-import { createSplunkEventsStream } from './splunk/createSplunkEventsStream'
-import { getSplunk } from './splunk/getSplunk'
+import { createSplunkEventsStream } from './node/createSplunkEventsStream'
+import { getSplunk } from './core/getSplunk'
 
 class PinoSplunkEvents extends Command {
   public static description = 'Log events to splunk'

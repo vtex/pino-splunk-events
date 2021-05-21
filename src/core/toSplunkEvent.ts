@@ -1,4 +1,4 @@
-import { isRecord } from '../utils/type/isRecord'
+import { isRecord } from './utils/type/isRecord'
 
 type PinoLevelLabel = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
 
@@ -7,7 +7,7 @@ type SplunkSeverity = {
   type: 'Error' | 'Warn' | 'Info'
 }
 
-const LOG_VALUE_TO_LABEL: Record<number, PinoLevelLabel> = {
+export const LOG_VALUE_TO_LABEL: Record<number, PinoLevelLabel> = {
   10: 'trace',
   20: 'debug',
   30: 'info',
@@ -16,7 +16,10 @@ const LOG_VALUE_TO_LABEL: Record<number, PinoLevelLabel> = {
   60: 'fatal',
 }
 
-const LOG_LABEL_TO_SPLUNK_SEVERITY: Record<PinoLevelLabel, SplunkSeverity> = {
+export const LOG_LABEL_TO_SPLUNK_SEVERITY: Record<
+  PinoLevelLabel,
+  SplunkSeverity
+> = {
   trace: { level: 'Debug', type: 'Info' },
   debug: { level: 'Debug', type: 'Info' },
   info: { level: 'Important', type: 'Info' },
@@ -25,12 +28,12 @@ const LOG_LABEL_TO_SPLUNK_SEVERITY: Record<PinoLevelLabel, SplunkSeverity> = {
   fatal: { level: 'Critical', type: 'Error' },
 }
 
-type PinoLog = Record<any, unknown> & {
+export type PinoLog = Record<any, unknown> & {
   level: number
   time: number
 }
 
-type SplunkLog = PinoLog & {
+export type SplunkLog = PinoLog & {
   account?: string
   workflowType?: string
   workflowInstance?: string
