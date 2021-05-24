@@ -2,10 +2,10 @@ import { isSplunkLog } from './toSplunkEvent'
 import { isPresent } from './utils/logic/isPresent'
 import { formatTime } from './utils/time/formatTime'
 import { omit } from './utils/object/omit'
+import { getConsoleLevelFromSplunkLog } from './ConsoleLevel'
 
-import type { PinoLevelLabel, SplunkLog } from './toSplunkEvent'
-
-export type ConsoleLevel = Exclude<PinoLevelLabel, 'fatal'>
+import type { ConsoleLevel } from './ConsoleLevel'
+import type { SplunkLog } from './toSplunkEvent'
 
 const messageFormatSplunkLog = (log: SplunkLog) => {
   if (log.workflowType) {
@@ -25,10 +25,11 @@ const messageFormat = (log: Record<any, unknown>) => {
 
 const defaultIgnore = ['level', 'time', 'msg', 'account', 'workflowType']
 
-const print = (level: ConsoleLevel, log: unknown, ignore = defaultIgnore) => {
-  const messages = []
-
+const print = (log: unknown, level?: ConsoleLevel, ignore = defaultIgnore) => {
   if (isSplunkLog(log)) {
+    const messages = []
+    const logLevel = level ?? getConsoleLevelFromSplunkLog(log)
+
     messages.push(
       `[${formatTime(new Date(log.time))}]: ${messageFormatSplunkLog(log)}`
     )
@@ -38,12 +39,12 @@ const print = (level: ConsoleLevel, log: unknown, ignore = defaultIgnore) => {
     if (isPresent(event)) {
       messages.push(event)
     }
-  } else {
-    messages.push(log)
-  }
 
-  // eslint-disable-next-line no-console
-  console[level](...messages)
+    // eslint-disable-next-line no-console
+    console[logLevel](...messages)
+  } else {
+    console.error(log)
+  }
 }
 
 export const PrettyConsole = { messageFormat, print, defaultIgnore }

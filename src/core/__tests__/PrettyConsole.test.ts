@@ -18,7 +18,7 @@ describe('PrettyConsole', () => {
           .spyOn(console, 'info')
           .mockImplementation(() => {})
 
-        PrettyConsole.print('info', {
+        PrettyConsole.print({
           level: 30,
           time: Date.now(),
           msg: 'Hello world!',
@@ -36,7 +36,7 @@ describe('PrettyConsole', () => {
           .spyOn(console, 'info')
           .mockImplementation(() => {})
 
-        PrettyConsole.print('info', {
+        PrettyConsole.print({
           level: 30,
           time: Date.now(),
           msg: 'Hello world!',

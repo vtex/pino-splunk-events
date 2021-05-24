@@ -1,3 +1,5 @@
+import pino from 'pino'
+
 import { PrettyConsole } from '../PrettyConsole'
 
 import type { PrettyOptions } from 'pino'
@@ -12,3 +14,12 @@ import type { PrettyOptions } from 'pino'
 
   console.info(options)
 }
+
+/**
+ * Must have compatibility with WriteFn type of pino
+ */
+pino({
+  browser: {
+    write: PrettyConsole.print,
+  },
+})
