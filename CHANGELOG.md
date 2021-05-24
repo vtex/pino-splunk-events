@@ -6,7 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.0.5] - 2021-05-24
+## [0.0.7] - 2021-05-24
+### Changed
+- Change PrettyConsole.print order of arguments to level be optional
+
+## 0.0.6 - 2021-05-24
+### Added
+- Better browser logging using PrettyLogger
+
+## 0.0.5 - 2021-05-24
 ### Added
 - Support for onConsoleLog into getPinoBrowserWriteLog
 

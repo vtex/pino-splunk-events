@@ -40,6 +40,7 @@ export type PinoLog = Record<any, unknown> & {
 }
 
 export type SplunkLog = PinoLog & {
+  msg?: string
   account?: string
   workflowType?: string
   workflowInstance?: string
@@ -57,6 +58,7 @@ export const isPinoLog = (value: unknown): value is PinoLog => {
 export const isSplunkLog = (value: unknown): value is SplunkLog => {
   return (
     isPinoLog(value) &&
+    (typeof value.msg === 'string' || typeof value.msg === 'undefined') &&
     (typeof value.account === 'string' ||
       typeof value.account === 'undefined') &&
     (typeof value.workflowType === 'string' ||
