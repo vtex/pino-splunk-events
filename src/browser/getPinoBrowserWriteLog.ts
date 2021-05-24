@@ -1,23 +1,18 @@
 import { getPinoWriteLog } from '../core/getPinoWriteLog'
 import { LOG_VALUE_TO_LABEL } from '../core/toSplunkEvent'
+import { PrettyConsole } from '../core/PrettyConsole'
 
-import type { PinoLevelLabel, SplunkLog } from '../core/toSplunkEvent'
+import type { ConsoleLevel } from '../core/PrettyConsole'
+import type { SplunkLog } from '../core/toSplunkEvent'
 import type SplunkEvents from 'splunk-events'
-
-type ConsoleLevel = Exclude<PinoLevelLabel, 'fatal'>
 
 type BrowserWriteLogCallbacks = {
   onConsoleLog?: (level: ConsoleLevel, log: SplunkLog) => void
 }
 
-const defaultLog: BrowserWriteLogCallbacks['onConsoleLog'] = (level, log) => {
-  // eslint-disable-next-line no-console
-  console[level](log)
-}
-
 export const getPinoBrowserWriteLog = (
   splunk: SplunkEvents,
-  { onConsoleLog = defaultLog }: BrowserWriteLogCallbacks = {}
+  { onConsoleLog = PrettyConsole.print }: BrowserWriteLogCallbacks = {}
 ) => {
   return getPinoWriteLog(splunk, {
     onSplunkLog: (log) => {

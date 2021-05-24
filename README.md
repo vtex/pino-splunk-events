@@ -18,7 +18,19 @@ $ npm install pino-splunk-events
 $ node app.js | npx pino-splunk-events --endpoint=YOUR_SPLUNK_ENDPOINT --token=YOUR_SPLUNK_TOKEN
 ```
 
-#### Browser
+#### Node (development mode)
+
+```ts
+import { PrettyConsole } from 'pino-splunk-events/lib/core/PrettyConsole'
+
+const logger = pino({
+  prettyPrint: {
+    messageFormat: PrettyConsole.messageFormat,
+  },
+})
+```
+
+#### Browser (production mode)
 
 ```ts
 import { getPinoBrowserWriteLog } from 'pino-splunk-events/lib/browser'
@@ -39,6 +51,19 @@ const splunk = new SplunkEvents({
 const logger = pino({
   browser: {
     write: getPinoBrowserWriteLog(splunk),
+  },
+})
+```
+
+#### Browser (development mode)
+
+```ts
+import { PrettyConsole } from 'pino-splunk-events/lib/core/PrettyConsole'
+import pino from 'pino'
+
+const logger = pino({
+  browser: {
+    write: PrettyConsole.print,
   },
 })
 ```
