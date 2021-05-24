@@ -1,8 +1,14 @@
 import { isRecord } from './utils/type/isRecord'
 
-type PinoLevelLabel = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
+export type PinoLevelLabel =
+  | 'fatal'
+  | 'error'
+  | 'warn'
+  | 'info'
+  | 'debug'
+  | 'trace'
 
-type SplunkSeverity = {
+export type SplunkSeverity = {
   level: 'Critical' | 'Important' | 'Debug'
   type: 'Error' | 'Warn' | 'Info'
 }
