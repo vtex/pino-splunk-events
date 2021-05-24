@@ -1,9 +1,12 @@
 {
   "name": "pino-splunk-events",
-  "version": "0.0.0",
+  "version": "0.0.5",
   "description": "Pino transport layer to splunk-events",
   "author": "VTEX",
   "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "contributors": [
     {
       "name": "Gabriel Takashi Katakura",
@@ -26,10 +29,12 @@
     "vtex"
   ],
   "files": [
-    "dist/",
-    "src/"
+    "src/",
+    "lib/"
   ],
-  "bin": "dist/cli.js",
+  "bin": "lib/cli.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "prepublishOnly": "yarn test && yarn build",
     "lint": "yarn lint:eslint && yarn lint:prettier",
@@ -42,17 +47,34 @@
     "test:ci": "yarn test --verbose --colors",
     "ts:validate": "yarn tsc",
     "coverage:open": "open-cli coverage/lcov-report/index.html",
-    "clean": "rimraf dist",
-    "build": "yarn clean && babel src --out-dir dist --extensions .ts --source-maps --ignore \"**/__tests__\" --copy-files --no-copy-ignored"
+    "clean": "rimraf lib",
+    "build": "yarn clean && yarn build:js && yarn build:types",
+    "build:js": "babel src --out-dir lib --extensions .ts",
+    "build:types": "tsc src/index.ts --outDir lib --declaration --emitDeclarationOnly --esModuleInterop",
+    "release": "release-it"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@oclif/command": "^1.8.0",
+    "@oclif/errors": "^1.3.4",
+    "axios": "^0.21.1",
+    "pumpify": "^2.0.1",
+    "split2": "^3.2.2",
+    "splunk-events": "^1.6.1-beta",
+    "through2": "^4.0.2"
+  },
   "devDependencies": {
-    "@babel/cli": "^7.12.13",
-    "@babel/core": "^7.12.13",
-    "@babel/node": "^7.12.13",
-    "@babel/plugin-transform-typescript": "^7.13.0",
-    "@babel/preset-env": "^7.12.13",
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/node": "^7.14.2",
+    "@babel/plugin-transform-typescript": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "@geut/chan": "^2.2.1",
+    "@release-it/keep-a-changelog": "^2.2.2",
+    "@types/eslint": "^7.2.10",
     "@types/jest": "^26.0.23",
+    "@types/pumpify": "^1.4.1",
+    "@types/split2": "^3.2.0",
+    "@types/through2": "^2.0.36",
     "@vtex/prettier-config": "^0.3.6",
     "@vtex/tsconfig": "^0.5.6",
     "babel-plugin-const-enum": "^1.0.1",
@@ -61,9 +83,15 @@
     "husky": "^6.0.0",
     "jest": "^26.6.3",
     "lint-staged": "^11.0.0",
+    "mockdate": "^3.0.5",
+    "msw": "^0.28.2",
+    "ndjson-parse": "^1.0.4",
     "nodemon": "^2.0.7",
+    "pino": "^6.11.3",
     "prettier": "^2.3.0",
+    "release-it": "^14.6.2",
     "releasy": "^1.12.0",
+    "rimraf": "^3.0.2",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
   },

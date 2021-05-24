@@ -1,0 +1,16 @@
+{
+  "github": {
+    "release": true
+  },
+  "plugins": {
+    "@release-it/keep-a-changelog": {
+      "strictLatest": false,
+      "addUnreleased": true,
+      "filename": "CHANGELOG.md"
+    }
+  },
+  "hooks": {
+    "before:init": ["npm run lint", "npm test"],
+    "after:bump": "npm run build"
+  }
+}

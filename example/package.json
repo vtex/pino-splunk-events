@@ -1,0 +1,16 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "logger:start": "node src/logger.js | ts-node ../src/cli.ts --endpoint=http://127.0.0.1:8088 --token=splunk-token",
+    "server:start": "node src/fakeSplunkServer"
+  },
+  "dependencies": {
+    "pino": "^6.11.3",
+    "pino-splunk-events": "file:.."
+  },
+  "devDependencies": {
+    "ts-node": "^9.1.1"
+  }
+}
