@@ -1,6 +1,6 @@
 {
   "name": "pino-splunk-events",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Pino transport layer to splunk-events",
   "author": "VTEX",
   "license": "MIT",
