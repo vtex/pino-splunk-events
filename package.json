@@ -1,6 +1,6 @@
 {
   "name": "pino-splunk-events",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Pino transport layer to splunk-events",
   "author": "VTEX",
   "license": "MIT",
@@ -49,8 +49,8 @@
     "coverage:open": "open-cli coverage/lcov-report/index.html",
     "clean": "rimraf lib",
     "build": "yarn clean && yarn build:js && yarn build:types",
-    "build:js": "babel src --out-dir lib --extensions .ts",
-    "build:types": "tsc src/index.ts --outDir lib --declaration --emitDeclarationOnly --esModuleInterop",
+    "build:js": "babel src --ignore \"**/__tests__\" --out-dir lib --extensions .ts",
+    "build:types": "tsc --project tsconfig.build.json",
     "release": "release-it"
   },
   "dependencies": {

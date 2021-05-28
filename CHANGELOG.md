@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.0.7] - 2021-05-24
+## [0.0.8] - 2021-05-28
+### Fixed
+- Support to nodejs >=10
+
+## 0.0.7 - 2021-05-24
 ### Changed
 - Change PrettyConsole.print order of arguments to level be optional
 
