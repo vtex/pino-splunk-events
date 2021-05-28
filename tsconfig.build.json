@@ -1,0 +1,11 @@
+{
+  "extends": "@vtex/tsconfig",
+  "compilerOptions": {
+    "outDir": "lib",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "esModuleInterop": true
+  },
+  "include": ["./src/index.ts"],
+  "exclude": ["__tests__", "__mocks__"]
+}
