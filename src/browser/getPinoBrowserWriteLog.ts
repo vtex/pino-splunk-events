@@ -10,9 +10,11 @@ type BrowserWriteLogCallbacks = {
   onConsoleLog?: (log: SplunkLog, level: ConsoleLevel) => void
 }
 
+const defaultLog = PrettyConsole.print
+
 export const getPinoBrowserWriteLog = (
   splunk: SplunkEvents,
-  { onConsoleLog = PrettyConsole.print }: BrowserWriteLogCallbacks = {}
+  { onConsoleLog = defaultLog }: BrowserWriteLogCallbacks = {}
 ) => {
   return getPinoWriteLog(splunk, {
     onSplunkLog: (log) => {
