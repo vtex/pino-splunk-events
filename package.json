@@ -45,6 +45,7 @@
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "test:debug:watch": "yarn test:debug --no-cache --watch",
     "test:ci": "yarn test --verbose --colors",
+    "size-limit": "size-limit",
     "ts:validate": "yarn tsc",
     "coverage:open": "open-cli coverage/lcov-report/index.html",
     "clean": "rimraf lib",
@@ -71,6 +72,7 @@
     "@babel/preset-env": "^7.14.2",
     "@geut/chan": "^2.2.1",
     "@release-it/keep-a-changelog": "^2.2.2",
+    "@size-limit/preset-small-lib": "^4.11.0",
     "@types/dateformat": "^3.0.1",
     "@types/eslint": "^7.2.10",
     "@types/jest": "^26.0.23",
@@ -96,9 +98,16 @@
     "release-it": "^14.6.2",
     "releasy": "^1.12.0",
     "rimraf": "^3.0.2",
+    "size-limit": "^4.11.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
   },
+  "size-limit": [
+    {
+      "path": "lib/browser/index.js",
+      "limit": "4 kB"
+    }
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
