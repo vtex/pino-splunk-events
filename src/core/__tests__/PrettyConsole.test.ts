@@ -51,6 +51,28 @@ describe('PrettyConsole', () => {
           { workflowInstance: 'user-gtk', layer: 'jest-tests' }
         )
       })
+
+      describe("and doesn't have msg property", () => {
+        it('calls console with formatted message', () => {
+          const consoleLog = jest
+            .spyOn(console, 'info')
+            .mockImplementation(() => {})
+
+          PrettyConsole.print({
+            level: 30,
+            time: Date.now(),
+            workflowType: 'splunk',
+            workflowInstance: 'user-gtk',
+            account: 'physical-stores',
+            layer: 'jest-tests',
+          })
+
+          expect(consoleLog).toBeCalledWith(
+            '[2021-10-14 21:00:00.000 -0300]: [splunk]',
+            { workflowInstance: 'user-gtk', layer: 'jest-tests' }
+          )
+        })
+      })
     })
   })
 })

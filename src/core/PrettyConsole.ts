@@ -9,7 +9,11 @@ import type { SplunkLog } from './toSplunkEvent'
 
 const messageFormatSplunkLog = (log: SplunkLog) => {
   if (log.workflowType) {
-    return `[${log.workflowType}] ${log.msg}`
+    if (log.msg) {
+      return `[${log.workflowType}] ${log.msg}`
+    }
+
+    return `[${log.workflowType}]`
   }
 
   return log.msg ?? ''
