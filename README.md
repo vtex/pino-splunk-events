@@ -68,6 +68,17 @@ const logger = pino({
 })
 ```
 
+### Table logs level to splunk
+
+| Log Level | Splunk Query               |
+| --------- | -------------------------- |
+| trace     | level=Debug type=Info      |
+| debug     | level=Debug type=Info      |
+| info      | level=Important type=Info  |
+| warn      | level=Important type=Warn  |
+| error     | level=Important type=Error |
+| fatal     | level=Critical type=Error  |
+
 ### Running example
 
 ```bash
