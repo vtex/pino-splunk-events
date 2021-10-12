@@ -4,9 +4,6 @@
   "description": "Pino transport layer to splunk-events",
   "author": "VTEX",
   "license": "MIT",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
   "contributors": [
     {
       "name": "Gabriel Takashi Katakura",
