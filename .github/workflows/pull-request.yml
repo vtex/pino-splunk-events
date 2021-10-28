@@ -136,6 +136,50 @@ jobs:
       - name: Run node lib/index.js
         run: node lib/index.js
 
+  publish-check:
+    name: Publish check
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    services:
+      verdaccio:
+        image: verdaccio/verdaccio:4.0.0
+        ports:
+          - 4873:4873
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@master
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Restore node cache
+        id: cache-node
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install node dependencies
+        if: steps.cache-node.outputs.cache-hit != 'true'
+        run: yarn --frozen-lockfile
+
+      - name: Login on Verdaccio
+        run: |
+          npx npm-cli-adduser -u username -p password -e username@email.com -r http://localhost:4873 || true
+
+      - name: Configure user info for git
+        run: |
+          git config --global user.email "verdaccio@github-bot.com"
+          git config --global user.name "Github Actions - Verdaccio"
+
+      - name: Publish with Verdaccio
+        run: yarn publish --registry http://localhost:4873 --new-version "0.0.1-verdaccio"
+
   size:
     name: Size Limit
     runs-on: ubuntu-latest
