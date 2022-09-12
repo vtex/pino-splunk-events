@@ -49,7 +49,7 @@
     "build": "yarn clean && yarn build:js && yarn build:types",
     "build:js": "babel src --ignore \"**/__tests__\" --out-dir lib --extensions .ts",
     "build:types": "tsc --project tsconfig.build.json",
-    "release": "release-it"
+    "release": "release-it --npm.publishArgs=\"--registry=https://registry.npmjs.org\""
   },
   "dependencies": {
     "@oclif/command": "^1.8.0",
